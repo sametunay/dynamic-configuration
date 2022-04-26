@@ -1,14 +1,18 @@
+using CustomCs.Configuration.Sources;
+
 namespace CustomCs.Configuration.Provider;
 
 public class DynamicProvider : ConfigurationProvider, IConfigurationProvider
 {
-    public override void Load()
+    private readonly DynamicSource _source;
+    
+    public DynamicProvider(DynamicSource source)
     {
-        base.Load();
+        _source = source;
     }
 
-    public override void Set(string key, string value)
+    public override void Load()
     {
-        base.Set(key, value);
+        this.Data = _source.DataSource.GetAll();
     }
 }
